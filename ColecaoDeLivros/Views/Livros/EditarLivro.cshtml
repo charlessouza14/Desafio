@@ -1,0 +1,36 @@
+﻿@{
+    var atualizar = ViewBag.Livro;
+}
+<title>Editar Biblioteca</title>
+<form action="Put" method="post">
+    
+    <input type="hidden" value="@atualizar.Id" name="Id" id="nome" />   
+
+    <input type="text" value="@atualizar.Fornecedor" name="Fornecedor" id="nome" />
+    <label for="nome">Fornecedor</label>
+    <br /><br />
+   
+    <input type="text" value="@atualizar.Recebedor" name="Recebedor" id="nome" />
+    <label for="nome">Recebedor</label>
+    <br /><br />
+    
+    <input type="text" value="@atualizar.NomeDoItem" name="NomeDoItem" id="nome" />
+    <label for="nome">Nome do Item</label>
+    <br /><br />
+
+    <input type="text" value="@atualizar.Item" name="Item" id="nome" />
+    <label for="nome">Item</label>
+    <br /><br />
+
+    <input type="text" value="@atualizar.Status" name="Status" id="nome" />
+    <label for="nome">Status</label>
+    <br /><br />
+
+    <input type="text" value="@atualizar.DataEmprestimo" name="DataEmprestimo" id="nome" />
+    <label for="nome">DataEmprestimo</label>
+    <br /><br />
+    
+
+    <button type="submit"> Atualizar</button>
+
+</form>
