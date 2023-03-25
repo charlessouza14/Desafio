@@ -7,7 +7,7 @@ namespace ColecaoDeLivros.Data
 {
     public class Contexto : DbContext
     {
-        public DbSet<Livros> Livros { get; set; }
+        public DbSet<Item> Livros { get; set; }
         public DbSet<Contato> Contato { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
@@ -16,7 +16,7 @@ namespace ColecaoDeLivros.Data
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Livros>().HasOne(m => m.Contato).WithOne().HasForeignKey("Contato");
+            modelBuilder.Entity<Item>().HasOne(m => m.Contato).WithOne().HasForeignKey("Contato");
         }
     }
 }

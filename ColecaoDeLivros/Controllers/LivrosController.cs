@@ -20,7 +20,7 @@ namespace ColecaoDeLivros.Controllers
         {
             return View("Post");
         }
-        public IActionResult Post(Livros livros)
+        public IActionResult Post(Item livros)
         {
             if (livros == null)
             {
@@ -53,7 +53,7 @@ namespace ColecaoDeLivros.Controllers
             ViewBag.Livro = atualizar;
             return View("EditarLivro");
         }
-        public IActionResult Put(Livros livros)
+        public IActionResult Put(Item livros)
         {
             LivrosRepository livrosRepository = new LivrosRepository();
             var atualizar = livrosRepository.Atualizar(livros);           

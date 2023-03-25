@@ -7,21 +7,21 @@ namespace ColecaoDeLivros.Repository
 {
     public class LivrosRepository : ControllerBase
     { 
-        public List<Livros> BuscarTudo()
+        public List<Item> BuscarTudo()
         {
             Contexto contexto = new Contexto();
             var buscar = contexto.Livros.ToList();
             return buscar;
         }
 
-        public void Adicionar (Livros emprestimos)
+        public void Adicionar (Item emprestimos)
         {
             Contexto contexto = new Contexto();
             contexto.Livros.Add(emprestimos);
             contexto.SaveChanges();            
         }
 
-        public Livros Buscar(int id)
+        public Item Buscar(int id)
         {
             Contexto contexto = new Contexto();
             var buscar = contexto.Livros.FirstOrDefault(x => x.Id == id);
@@ -35,7 +35,7 @@ namespace ColecaoDeLivros.Repository
             return buscar;
         }     
         
-        public Livros Atualizar(Livros emprestimo)
+        public Item Atualizar(Item emprestimo)
         {
             Contexto contexto = new Contexto();
             var atualizar = contexto.Livros.FirstOrDefault(x => x.Id == emprestimo.Id);
