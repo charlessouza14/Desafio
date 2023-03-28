@@ -28,7 +28,7 @@ namespace ColecaoDeLivros
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Livros}/{action=Index}/{id?}");
+                pattern: "{controller=Item}/{action=Index}/{id?}");
 
             app.Run();
         }

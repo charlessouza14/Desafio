@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ColecaoDeLivros.Migrations
 {
     [DbContext(typeof(Contexto))]
-    [Migration("20230316221353_CriacaoDoBanco")]
-    partial class CriacaoDoBanco
+    [Migration("20230328201811_Inicial")]
+    partial class Inicial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -27,7 +27,10 @@ namespace ColecaoDeLivros.Migrations
             modelBuilder.Entity("ColecaoDeLivros.Models.Contato", b =>
                 {
                     b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<int>("Celular")
                         .HasColumnType("int");
@@ -36,16 +39,23 @@ namespace ColecaoDeLivros.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("ItemEmprestado")
+                        .HasColumnType("int");
+
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ItemEmprestado")
+                        .IsUnique()
+                        .HasFilter("[ItemEmprestado] IS NOT NULL");
+
                     b.ToTable("Contato");
                 });
 
-            modelBuilder.Entity("ColecaoDeLivros.Models.Livros", b =>
+            modelBuilder.Entity("ColecaoDeLivros.Models.Item", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -53,22 +63,11 @@ namespace ColecaoDeLivros.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<DateTime>("DataEmprestimo")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Fornecedor")
+                    b.Property<string>("Discriminator")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Item")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NomeDoItem")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Recebedor")
+                    b.Property<string>("Nome")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -76,21 +75,35 @@ namespace ColecaoDeLivros.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Tipo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("UltimaAtualizacao")
+                        .HasColumnType("datetime2");
+
                     b.HasKey("Id");
 
-                    b.ToTable("Livros");
+                    b.ToTable("Item");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("Item");
+                });
+
+            modelBuilder.Entity("ColecaoDeLivros.Models.ItemEmprestado", b =>
+                {
+                    b.HasBaseType("ColecaoDeLivros.Models.Item");
+
+                    b.HasDiscriminator().HasValue("ItemEmprestado");
                 });
 
             modelBuilder.Entity("ColecaoDeLivros.Models.Contato", b =>
                 {
-                    b.HasOne("ColecaoDeLivros.Models.Livros", null)
+                    b.HasOne("ColecaoDeLivros.Models.Item", null)
                         .WithOne("Contato")
-                        .HasForeignKey("ColecaoDeLivros.Models.Contato", "Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ColecaoDeLivros.Models.Contato", "ItemEmprestado");
                 });
 
-            modelBuilder.Entity("ColecaoDeLivros.Models.Livros", b =>
+            modelBuilder.Entity("ColecaoDeLivros.Models.Item", b =>
                 {
                     b.Navigation("Contato")
                         .IsRequired();

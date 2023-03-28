@@ -5,26 +5,33 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ColecaoDeLivros.Repository
 {
-    public class LivrosRepository : ControllerBase
+    public class ItemRepository : ControllerBase
     { 
         public List<Item> BuscarTudo()
         {
             Contexto contexto = new Contexto();
-            var buscar = contexto.Livros.ToList();
+            var buscar = contexto.Item.ToList();
+            return buscar;
+        }
+
+        public List<ItemEmprestado> ItemEmprestado()
+        {
+            Contexto contexto = new Contexto();
+            var buscar = contexto.ItemEmprestado.ToList();
             return buscar;
         }
 
         public void Adicionar (Item emprestimos)
         {
             Contexto contexto = new Contexto();
-            contexto.Livros.Add(emprestimos);
+            contexto.Item.Add(emprestimos);
             contexto.SaveChanges();            
         }
 
         public Item Buscar(int id)
         {
             Contexto contexto = new Contexto();
-            var buscar = contexto.Livros.FirstOrDefault(x => x.Id == id);
+            var buscar = contexto.Item.FirstOrDefault(x => x.Id == id);
             return buscar;
 
         }
@@ -38,15 +45,12 @@ namespace ColecaoDeLivros.Repository
         public Item Atualizar(Item emprestimo)
         {
             Contexto contexto = new Contexto();
-            var atualizar = contexto.Livros.FirstOrDefault(x => x.Id == emprestimo.Id);
-            atualizar.Recebedor = emprestimo.Recebedor;
-            atualizar.Fornecedor = emprestimo.Fornecedor;
-            atualizar.NomeDoItem = emprestimo.NomeDoItem;
-            atualizar.Item = emprestimo.Item;
+            var atualizar = contexto.Item.FirstOrDefault(x => x.Id == emprestimo.Id);
+            atualizar.Nome = emprestimo.Nome;
+            atualizar.Tipo = emprestimo.Tipo;
             atualizar.Status = emprestimo.Status;
-            atualizar.DataEmprestimo = emprestimo.DataEmprestimo;
-            //atualizar.AtualizarLivro(emprestimo.Fornecedor, emprestimo.Recebedor, emprestimo.NomeDoItem, emprestimo.Item, emprestimo.Status, emprestimo.DataEmprestimo);
-            contexto.Livros.Update(atualizar);
+            atualizar.UltimaAtualizacao = emprestimo.UltimaAtualizacao;            
+            contexto.Item.Update(atualizar);
             contexto.SaveChanges();
             return atualizar;
         }
@@ -54,8 +58,8 @@ namespace ColecaoDeLivros.Repository
         public void Deletar(int id)
         {
             Contexto contexto = new Contexto();
-            var deletar = contexto.Livros.FirstOrDefault(x => x.Id==id);
-            contexto.Livros.Remove(deletar);
+            var deletar = contexto.Item.FirstOrDefault(x => x.Id==id);
+            contexto.Item.Remove(deletar);
             contexto.SaveChanges();            
         }
 
