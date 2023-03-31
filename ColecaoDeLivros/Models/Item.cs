@@ -8,9 +8,9 @@ namespace ColecaoDeLivros.Models
         public string Nome { get; set; }
         public string Tipo { get; set; }
         public string Status { get; set; }       
-        public DateTime UltimaAtualizacao { get; set; }   
+        public DateTime UltimaAtualizacao { get; set; }         
         public Contato Contato { get; set; }
-
+        
         public Item()
         {
             UltimaAtualizacao = DateTime.Now;     
