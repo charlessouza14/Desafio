@@ -35,11 +35,27 @@ namespace ColecaoDeLivros.Controllers
         }
         public IActionResult Post(Item item)
         {          
-            ItemRepository itemRepository = new ItemRepository();     
+            ItemRepository itemRepository = new ItemRepository();
             ValidadorDeItem validadorDeItem = item.EhValido();
             if (validadorDeItem.Status == false)
             {
                 return BadRequest(validadorDeItem.Mensagem);
+            }
+            if (item.Tipo == "Livro")
+            {
+                return Ok();
+            }
+            if (item.Tipo == "Cd")
+            {
+                return Ok();
+            }
+            if (item.Tipo == "Dvd")
+            {
+                return Ok();
+            }
+            else
+            {
+                return BadRequest("Por favor inserir um tipo válido ( Livro, Cd ou Dvd)!");
             }
             itemRepository.Adicionar(item);            
             return RedirectToAction("Index");

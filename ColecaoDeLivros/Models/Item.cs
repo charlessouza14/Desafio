@@ -24,7 +24,8 @@ namespace ColecaoDeLivros.Models
                 return new ValidadorDeItem(false, "Por favor digite um nome válido!");
            
             if (string.IsNullOrWhiteSpace(this.Tipo))
-                return new ValidadorDeItem(false, "Por favor digite um nome válido!");
+                return new ValidadorDeItem(false, "Por favor digite um tipo válido!");
+
 
             else
                 return new ValidadorDeItem(true, "Criado com sucesso!");
