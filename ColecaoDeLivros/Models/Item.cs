@@ -1,4 +1,5 @@
-﻿using System.Reflection.Metadata;
+﻿using ColecaoDeLivros.DTO;
+using System.Reflection.Metadata;
 
 namespace ColecaoDeLivros.Models
 {
@@ -15,7 +16,19 @@ namespace ColecaoDeLivros.Models
         {
             UltimaAtualizacao = DateTime.Now;     
             Status = "Disponível";
-        }          
+        }  
+        
+        public ValidadorDeItem EhValido()
+        {
+            if (string.IsNullOrWhiteSpace(this.Nome))
+                return new ValidadorDeItem(false, "Por favor digite um nome válido!");
+           
+            if (string.IsNullOrWhiteSpace(this.Tipo))
+                return new ValidadorDeItem(false, "Por favor digite um nome válido!");
+
+            else
+                return new ValidadorDeItem(true, "Criado com sucesso!");
+        }
                
      
     }

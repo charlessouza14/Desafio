@@ -1,4 +1,5 @@
 ﻿using ColecaoDeLivros.Data;
+using ColecaoDeLivros.DTO;
 using ColecaoDeLivros.Models;
 using ColecaoDeLivros.Repository;
 using Microsoft.AspNetCore.Mvc;
@@ -32,14 +33,15 @@ namespace ColecaoDeLivros.Controllers
         {
             return View("Post");
         }
-        public IActionResult Post(Item livros)
-        {
-            if (livros == null)
+        public IActionResult Post(Item item)
+        {          
+            ItemRepository itemRepository = new ItemRepository();     
+            ValidadorDeItem validadorDeItem = item.EhValido();
+            if (validadorDeItem.Status == false)
             {
-                return View("Por favor digite um nome válido");
+                return BadRequest(validadorDeItem.Mensagem);
             }
-            ItemRepository livrosRepository = new ItemRepository();           
-            livrosRepository.Adicionar(livros);            
+            itemRepository.Adicionar(item);            
             return RedirectToAction("Index");
         }
 
