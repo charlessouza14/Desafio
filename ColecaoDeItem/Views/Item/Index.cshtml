@@ -1,0 +1,55 @@
+﻿@{
+	ViewData["Title"] = "Emprestimos de Livros/CDs/DVDs";
+	var listaEmprestimo = ViewBag.Livros;
+}
+<h1>Lista de Emprestimos</h1>
+<table class="table">
+    <tr>
+        <td>Id</td>      
+        <td>Nome</td>
+        <td>Tipo</td>
+        <td>Status</td>
+        <td>Ultima atualização</td>
+     
+        
+    </tr>
+    @{
+        foreach (var c in listaEmprestimo)
+        {
+            <tr>
+                <td>@c.Id</td>               
+                <td>@c.Nome</td>
+                <td>@c.Tipo</td>
+                <td>@c.Status</td>
+                <td>@c.UltimaAtualizacao</td>
+
+                <td>
+                    <a href="Item/PutForm?id=@c.Id" type="button" class="btn btn-primary"> Editar </a>
+                </td>
+                <td>
+                    <a href="Item/ItemEmprestadoForm?id=@c.Id" type="button" class="btn btn-primary"> Emprestar </a>
+                </td>
+                <td>
+                    <form action="Item/Delete" method="post">
+
+                        <input name="id" value="@c.Id" type="hidden" />
+                        <button type="submit"> Deletar</button>
+
+                    </form>
+                </td>
+            </tr>
+        }
+    }
+
+</table>
+<hr />
+<a href="Item/PostForm" type="button" class="btn btn-primary"> Adicionar </a>
+
+<hr />
+
+<form action="Item/GetForm" method="post">
+  
+    <input name="nome" type="text" />    
+    <button type="submit">Buscar</button>      
+
+</form>
