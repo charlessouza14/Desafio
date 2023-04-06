@@ -34,24 +34,23 @@ namespace ColecaoDeLivros.Controllers
             return View("Post");
         }
         public IActionResult Post(Item item)
-        {          
-            ItemRepository itemRepository = new ItemRepository();
-            ValidadorDeItem validadorDeItem = item.EhValido();
+        {
+            ItemRepository itemRepository = new ItemRepository();            
+            ValidadorDeItem validadorDeItem = item.EhValido();            
             if (validadorDeItem.Status == false)
             {
                 return BadRequest(validadorDeItem.Mensagem);
             }
-            if (item.Tipo == "Livro")
+            if (item.Tipo.ToLower() == "livro")   
             {
-                return Ok();
+                itemRepository.Adicionar(item);
+                return RedirectToAction("Index");
             }
-            if (item.Tipo == "Cd")
+            else if (item.Tipo.ToLower() == "cd")
             {
-                return Ok();
             }
-            if (item.Tipo == "Dvd")
+            else if (item.Tipo.ToLower() == "dvd")
             {
-                return Ok();
             }
             else
             {

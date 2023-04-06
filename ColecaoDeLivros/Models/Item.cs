@@ -16,8 +16,8 @@ namespace ColecaoDeLivros.Models
         {
             UltimaAtualizacao = DateTime.Now;     
             Status = "Disponível";
-        }  
-        
+        }           
+       
         public ValidadorDeItem EhValido()
         {
             if (string.IsNullOrWhiteSpace(this.Nome))

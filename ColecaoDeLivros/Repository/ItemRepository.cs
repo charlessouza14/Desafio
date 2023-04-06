@@ -21,10 +21,10 @@ namespace ColecaoDeLivros.Repository
             return buscar;
         }
 
-        public void Adicionar (Item emprestimos)
+        public void Adicionar (Item item)
         {
-            Contexto contexto = new Contexto();
-            contexto.Item.Add(emprestimos);
+            Contexto contexto = new Contexto();          
+            contexto.Item.Add(item);            
             contexto.SaveChanges();            
         }
 
