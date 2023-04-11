@@ -2,15 +2,25 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
-    var buscar = ViewBag.Nome;
+    var buscarPorNome = ViewBag.BuscarItem;
+   
 }
 
-<title>Buscar Livro</title>
+<title>Buscar Item</title>
 <table class="table">
     <tr>
-        <td>@buscar.Nome</td>
-        <td>@buscar.Celular</td>
-        <td>@buscar.Endereco</td>   
-       
-</tr>
+        <td>Nome</td>
+        <td>Tipo</td>
+        <td>Status</td>
+
+    </tr>
+    
+            <tr>
+                <td>@buscarPorNome.Nome</td>
+                <td>@buscarPorNome.Tipo</td>
+                <td>@buscarPorNome.Status</td>
+            </tr>
+     
+    
+  
 </table>

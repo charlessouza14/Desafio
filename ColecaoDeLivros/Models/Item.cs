@@ -26,7 +26,6 @@ namespace ColecaoDeLivros.Models
             if (string.IsNullOrWhiteSpace(this.Tipo))
                 return new ValidadorDeItem(false, "Por favor digite um tipo válido!");
 
-
             else
                 return new ValidadorDeItem(true, "Criado com sucesso!");
         }

@@ -62,21 +62,22 @@ namespace ColecaoDeLivros.Controllers
 
         public IActionResult GetForm(string nome)
         {
-            ItemRepository livrosRepository = new ItemRepository();
-            var buscarPorNome = livrosRepository.BuscarPessoa(nome);
-            ViewBag.Nome = buscarPorNome;
+            ItemRepository itemRepository = new ItemRepository();           
+            var buscarPorNome = itemRepository.BuscarPessoa(nome);
+            if (buscarPorNome == null)
+            {
+                return BadRequest("Item não encontrado, por favor tente outro!");
+            }
+            if (string.IsNullOrWhiteSpace(nome))
+            {
+                return BadRequest("Item não encontrado, por favor tente outro!");
+            }
+            ViewBag.BuscarItem = buscarPorNome;
             return View("BuscarPorNome");
-        }
-        //public IActionResult Get(int id)
-        //{
-        //    LivrosRepository livrosRepository = new LivrosRepository();
-        //    var buscarPorId = livrosRepository.Buscar(id);
-        //    ViewBag.Livros = buscarPorId;
-        //    return RedirectToAction("Index","Livros");
-        //}   
+        }    
 
         public IActionResult PutForm(int id)
-        {
+        {            
             ItemRepository livrosRepository = new ItemRepository();
             var atualizar = livrosRepository.Buscar(id);
             ViewBag.Livro = atualizar;
@@ -85,8 +86,13 @@ namespace ColecaoDeLivros.Controllers
         public IActionResult Put(Item livros)
         {
             ItemRepository livrosRepository = new ItemRepository();
+            ValidadorDeItem validadorDeItem = livros.EhValido();
+            if (validadorDeItem.Status == false)
+            {
+                return BadRequest(validadorDeItem.Mensagem);
+            }
             var atualizar = livrosRepository.Atualizar(livros);           
-            return RedirectToAction("Index","Livros");
+            return RedirectToAction("Index");
         }
 
         public IActionResult Delete(int id)

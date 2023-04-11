@@ -2,6 +2,8 @@
 using ColecaoDeLivros.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using System.Collections.Immutable;
 
 namespace ColecaoDeLivros.Repository
 {
@@ -35,11 +37,12 @@ namespace ColecaoDeLivros.Repository
             return buscar;
 
         }
-        public Contato BuscarPessoa(string nome)
+        public Item BuscarPessoa(string nome)
         {
             Contexto contexto = new Contexto();
-            var buscar = contexto.Contato.FirstOrDefault(x => x.Nome == nome);
+            var buscar = contexto.Item.First(x => x.Nome.ToLower() == nome || x.Tipo.ToLower() == nome || x.Status.ToLower() == nome);
             return buscar;
+
         }     
         
         public Item Atualizar(Item emprestimo)
@@ -47,9 +50,7 @@ namespace ColecaoDeLivros.Repository
             Contexto contexto = new Contexto();
             var atualizar = contexto.Item.FirstOrDefault(x => x.Id == emprestimo.Id);
             atualizar.Nome = emprestimo.Nome;
-            atualizar.Tipo = emprestimo.Tipo;
-            atualizar.Status = emprestimo.Status;
-            atualizar.UltimaAtualizacao = emprestimo.UltimaAtualizacao;            
+            atualizar.Tipo = emprestimo.Tipo;                                  
             contexto.Item.Update(atualizar);
             contexto.SaveChanges();
             return atualizar;
