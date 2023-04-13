@@ -26,12 +26,9 @@ namespace ColecaoDeItem.Controllers
             ValidadorDeItem validadorDeItem = item.EhValido();
             if (validadorDeItem.Status == false)
             {
-                return BadRequest(validadorDeItem.Mensagem);
+                return View("MensagemDeErro");
             }
-            if (item.Tipo.ToLower() == "livro" || item.Tipo.ToLower() == "cd" || item.Tipo.ToLower() == "dvd")
-            {
-                itemRepository.Adicionar(item);
-            }
+            itemRepository.Adicionar(item);
             return RedirectToAction("Index");
         }
 
@@ -41,11 +38,11 @@ namespace ColecaoDeItem.Controllers
             var buscarPorNome = itemRepository.BuscarItem(nome);
             if (buscarPorNome == null)
             {
-                return BadRequest("Item não encontrado, por favor tente outro!");
+                return View("MensagemDeErro");
             }
             if (string.IsNullOrWhiteSpace(nome))
             {
-                return BadRequest("Item não encontrado, por favor tente outro!");
+                return View("MensagemDeErro");
             }
             ViewBag.BuscarItem = buscarPorNome;
             return View("BuscarPorNome");
@@ -63,7 +60,7 @@ namespace ColecaoDeItem.Controllers
             ValidadorDeItem validadorDeItem = item.EhValido();
             if (validadorDeItem.Status == false)
             {
-                return BadRequest(validadorDeItem.Mensagem);
+                return View("MensagemDeErro");
             }
             var atualizar = itemRepository.Atualizar(item);           
             return RedirectToAction("Index");

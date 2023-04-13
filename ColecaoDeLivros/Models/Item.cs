@@ -26,10 +26,10 @@ namespace ColecaoDeItem.Models
             if (string.IsNullOrWhiteSpace(this.Tipo))
                 return new ValidadorDeItem(false, "Por favor digite um tipo válido!");
 
-            //if (this.Tipo.ToLower() != "livro" || this.Tipo.ToLower() != "cd" || this.Tipo.ToLower() != "dvd")
-            //{
-            //    return new ValidadorDeItem(false, "Por favor inserir um tipo válido ( Livro, Cd ou Dvd)!");
-            //}
+            if (this.Tipo.ToLower() != "livro" && this.Tipo.ToLower() != "cd" && this.Tipo.ToLower() != "dvd")
+            {
+                return new ValidadorDeItem(false, "Por favor inserir um tipo válido ( Livro, Cd ou Dvd)!");
+            }
 
             else
                 return new ValidadorDeItem(true, "Criado com sucesso!");
