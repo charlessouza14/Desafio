@@ -1,9 +1,9 @@
-﻿using ColecaoDeLivros.Models;
+﻿using ColecaoDeItem.Models;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System;
 
-namespace ColecaoDeLivros.Data
+namespace ColecaoDeItem.Data
 {
     public class Contexto : DbContext
     {

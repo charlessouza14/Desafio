@@ -1,4 +1,6 @@
-﻿namespace ColecaoDeLivros.DTO
+﻿using ColecaoDeItem.Models;
+
+namespace ColecaoDeItem.DTO
 {
     public class ValidadorDeItem
     {

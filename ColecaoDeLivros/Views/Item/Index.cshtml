@@ -1,8 +1,8 @@
 ﻿@{
 	ViewData["Title"] = "Emprestimos de Livros/CDs/DVDs";
-	var listaEmprestimo = ViewBag.Livros;
+	var listaDeItem = ViewBag.Item;
 }
-<h1>Lista de Emprestimos</h1>
+<h1>Lista de Itens</h1>
 <table class="table">
     <tr>
         <td>Id</td>      
@@ -14,7 +14,7 @@
         
     </tr>
     @{
-        foreach (var c in listaEmprestimo)
+        foreach (var c in listaDeItem)
         {
             <tr>
                 <td>@c.Id</td>               
@@ -44,7 +44,7 @@
 
 <hr />
 
-<form action="Item/GetForm" method="post">
+<form action="Item/Get" method="post">
   
     <input name="nome" type="text" />    
     <button type="submit">Buscar</button>      
