@@ -3,7 +3,7 @@ using ColecaoDeItem.DTO;
 using ColecaoDeItem.Models;
 using ColecaoDeItem.Repository;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Diagnostics.HealthChecks;
+
 
 namespace ColecaoDeItem.Controllers
 {
@@ -36,11 +36,7 @@ namespace ColecaoDeItem.Controllers
         {
             ItemRepository itemRepository = new ItemRepository();           
             var buscarPorNome = itemRepository.BuscarItem(nome);
-            if (buscarPorNome == null)
-            {
-                return View("MensagemDeErro");
-            }
-            if (string.IsNullOrWhiteSpace(nome))
+            if (buscarPorNome == null || string.IsNullOrWhiteSpace(nome))
             {
                 return View("MensagemDeErro");
             }
@@ -50,8 +46,8 @@ namespace ColecaoDeItem.Controllers
         public IActionResult PutForm(int id)
         {            
             ItemRepository itemRepository = new ItemRepository();
-            var atualizar = itemRepository.BuscarPorId(id);
-            ViewBag.PutItem = atualizar;
+            itemRepository.BuscarPorId(id);
+            ViewBag.PutItem = itemRepository;
             return View("EditarItem");
         }
         public IActionResult Put(Item item)
