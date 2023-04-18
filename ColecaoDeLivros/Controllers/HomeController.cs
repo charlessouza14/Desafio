@@ -1,8 +1,8 @@
-﻿using ColecaoDeLivros.Models;
+﻿using ColecaoDeItem.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
-namespace ColecaoDeLivros.Controllers
+namespace ColecaoDeItem.Controllers
 {
     public class HomeController : Controller
     {

@@ -1,6 +1,6 @@
 ﻿using System.Reflection.Metadata;
 
-namespace ColecaoDeLivros.Models
+namespace ColecaoDeItem.Models
 {
     public class ItemEmprestado : Item
     {       

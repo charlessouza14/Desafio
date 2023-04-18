@@ -1,0 +1,19 @@
+﻿@{
+    var atualizar = ViewBag.PutItem;
+}
+<title>Editar Item</title>
+<form action="Put" method="post">
+    
+    <input type="hidden" value="@atualizar.Id" name="Id" id="nome" />   
+   
+    <label for="nome">Nome :</label>
+    <input type="text" value="@atualizar.Nome" name="Nome" id="nome" />    
+    <br /><br />
+   
+    <label for="nome">Tipo :</label>
+    <input type="text" value="@atualizar.Tipo" name="Tipo" id="nome" />      
+    <br /><br />
+
+    <button type="submit"> Atualizar</button>
+
+</form>

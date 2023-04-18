@@ -7,11 +7,12 @@
 <form action="Post" method="post">
 
     <label for="nome">Nome do Item</label>
-    <input type="text" name="Nome" id="nome" />    
+    <input type="text" name="Nome" id="nome" requered minlength="2" />    
     <br />  <br />
 
     <label for="tipo">Tipo</label>
-    <input type="text" name="Tipo" id="tipo" />
+    <input type="text" name="Tipo" id="tipo" requered minlength="2" placeholder="Livro,Cd ou DVD" />
+
     <br />  <br />  
 
     <button type="submit" action="Post">Criar</button>

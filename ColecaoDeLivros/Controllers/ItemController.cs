@@ -1,81 +1,71 @@
-﻿using ColecaoDeLivros.Data;
-using ColecaoDeLivros.Models;
-using ColecaoDeLivros.Repository;
+﻿using ColecaoDeItem.Data;
+using ColecaoDeItem.DTO;
+using ColecaoDeItem.Models;
+using ColecaoDeItem.Repository;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Diagnostics.HealthChecks;
 
-namespace ColecaoDeLivros.Controllers
+
+namespace ColecaoDeItem.Controllers
 {
     public class ItemController : Controller
     {
         public IActionResult Index()
         {
             ItemRepository itemRepository = new ItemRepository();
-            var buscar = itemRepository.BuscarTudo();
-            ViewBag.Livros = buscar;
+            var listaDeItem = itemRepository.BuscarTudo();
+            ViewBag.Item = listaDeItem;
             return View("Index");
-        }
-        
-        public IActionResult ItemEmprestadoList()
-        {
-            ItemRepository itemRepository = new ItemRepository();
-            var buscar = itemRepository.ItemEmprestado();
-            ViewBag.Emprestado = buscar;
-            return View("Emprestado");
-        }       
-        
-        public IActionResult ItemEmprestadoForm()
-        {
-            return View("ItemAEmprestar");
         }
         public IActionResult PostForm()
         {
             return View("Post");
         }
-        public IActionResult Post(Item livros)
+        public IActionResult Post(Item item)
         {
-            if (livros == null)
+            ItemRepository itemRepository = new ItemRepository();            
+            ValidadorDeItem validadorDeItem = item.EhValido();
+            if (validadorDeItem.Status == false)
             {
-                return View("Por favor digite um nome válido");
+                return View("MensagemDeErro");
             }
-            ItemRepository livrosRepository = new ItemRepository();           
-            livrosRepository.Adicionar(livros);            
+            itemRepository.Adicionar(item);
             return RedirectToAction("Index");
         }
 
-        public IActionResult GetForm(string nome)
+        public IActionResult Get(string nome)
         {
-            ItemRepository livrosRepository = new ItemRepository();
-            var buscarPorNome = livrosRepository.BuscarPessoa(nome);
-            ViewBag.Nome = buscarPorNome;
+            ItemRepository itemRepository = new ItemRepository();           
+            var buscarPorNome = itemRepository.BuscarItem(nome);
+            if (buscarPorNome == null || string.IsNullOrWhiteSpace(nome))
+            {
+                return View("MensagemDeErro");
+            }
+            ViewBag.BuscarItem = buscarPorNome;
             return View("BuscarPorNome");
         }
-        //public IActionResult Get(int id)
-        //{
-        //    LivrosRepository livrosRepository = new LivrosRepository();
-        //    var buscarPorId = livrosRepository.Buscar(id);
-        //    ViewBag.Livros = buscarPorId;
-        //    return RedirectToAction("Index","Livros");
-        //}   
-
         public IActionResult PutForm(int id)
-        {
-            ItemRepository livrosRepository = new ItemRepository();
-            var atualizar = livrosRepository.Buscar(id);
-            ViewBag.Livro = atualizar;
-            return View("EditarLivro");
+        {            
+            ItemRepository itemRepository = new ItemRepository();
+            itemRepository.BuscarPorId(id);
+            ViewBag.PutItem = itemRepository;
+            return View("EditarItem");
         }
-        public IActionResult Put(Item livros)
+        public IActionResult Put(Item item)
         {
-            ItemRepository livrosRepository = new ItemRepository();
-            var atualizar = livrosRepository.Atualizar(livros);           
-            return RedirectToAction("Index","Livros");
+            ItemRepository itemRepository = new ItemRepository();
+            ValidadorDeItem validadorDeItem = item.EhValido();
+            if (validadorDeItem.Status == false)
+            {
+                return View("MensagemDeErro");
+            }
+            var atualizar = itemRepository.Atualizar(item);           
+            return RedirectToAction("Index");
         }
 
         public IActionResult Delete(int id)
         {
-            ItemRepository livrosRepository = new ItemRepository();
-            livrosRepository.Deletar(id);
+            ItemRepository itemRepository = new ItemRepository();
+            itemRepository.Deletar(id);
             return RedirectToAction("Index");
 
         }

@@ -1,9 +1,12 @@
-﻿using ColecaoDeLivros.Data;
-using ColecaoDeLivros.Models;
+﻿using ColecaoDeItem.Data;
+using ColecaoDeItem.DTO;
+using ColecaoDeItem.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using System.Collections.Immutable;
 
-namespace ColecaoDeLivros.Repository
+namespace ColecaoDeItem.Repository
 {
     public class ItemRepository : ControllerBase
     { 
@@ -14,42 +17,35 @@ namespace ColecaoDeLivros.Repository
             return buscar;
         }
 
-        public List<ItemEmprestado> ItemEmprestado()
+        public void Adicionar (Item item)
         {
-            Contexto contexto = new Contexto();
-            var buscar = contexto.ItemEmprestado.ToList();
-            return buscar;
-        }
-
-        public void Adicionar (Item emprestimos)
-        {
-            Contexto contexto = new Contexto();
-            contexto.Item.Add(emprestimos);
+            Contexto contexto = new Contexto();          
+            contexto.Item.Add(item);            
             contexto.SaveChanges();            
         }
 
-        public Item Buscar(int id)
+        public Item BuscarPorId(int id)
         {
             Contexto contexto = new Contexto();
             var buscar = contexto.Item.FirstOrDefault(x => x.Id == id);
             return buscar;
 
         }
-        public Contato BuscarPessoa(string nome)
+        public Item BuscarItem(string nome)
         {
+            // idéia aqui era usar o Find (x => x.Nome.ToLower() == nome || x.Tipo.ToLower() == nome || x.Status.ToLower() == nome).ToList();
             Contexto contexto = new Contexto();
-            var buscar = contexto.Contato.FirstOrDefault(x => x.Nome == nome);
+            var buscar = contexto.Item.FirstOrDefault(x => x.Nome.ToLower() == nome || x.Tipo.ToLower() == nome || x.Status.ToLower() == nome);
             return buscar;
+
         }     
         
-        public Item Atualizar(Item emprestimo)
+        public Item Atualizar(Item item)
         {
             Contexto contexto = new Contexto();
-            var atualizar = contexto.Item.FirstOrDefault(x => x.Id == emprestimo.Id);
-            atualizar.Nome = emprestimo.Nome;
-            atualizar.Tipo = emprestimo.Tipo;
-            atualizar.Status = emprestimo.Status;
-            atualizar.UltimaAtualizacao = emprestimo.UltimaAtualizacao;            
+            var atualizar = contexto.Item.FirstOrDefault(x => x.Id == item.Id);
+            atualizar.Nome = item.Nome;
+            atualizar.Tipo = item.Tipo;                                  
             contexto.Item.Update(atualizar);
             contexto.SaveChanges();
             return atualizar;

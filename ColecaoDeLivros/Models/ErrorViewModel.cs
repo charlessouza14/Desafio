@@ -1,4 +1,4 @@
-namespace ColecaoDeLivros.Models
+namespace ColecaoDeItem.Models
 {
     public class ErrorViewModel
     {

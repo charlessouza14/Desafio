@@ -1,4 +1,4 @@
-namespace ColecaoDeLivros
+namespace ColecaoDeItem
 {
     public class Program
     {

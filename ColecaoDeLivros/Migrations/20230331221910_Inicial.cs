@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace ColecaoDeLivros.Migrations
+namespace ColecaoDeItem.Migrations
 {
     public partial class Inicial : Migration
     {

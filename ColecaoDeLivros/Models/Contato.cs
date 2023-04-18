@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace ColecaoDeLivros.Models
+namespace ColecaoDeItem.Models
 {
     public class Contato 
     {
