@@ -1,7 +1,8 @@
 ﻿using ColecaoDeItem.Data;
-using ColecaoDeItem.DTO;
 using ColecaoDeItem.Models;
 using ColecaoDeItem.Repository;
+using ColecaoDeItem.Service;
+using ColecaoDeItem.Service.DTO;
 using Microsoft.AspNetCore.Mvc;
 
 
@@ -22,7 +23,7 @@ namespace ColecaoDeItem.Controllers
         }
         public IActionResult Post(Item item)
         {
-            ItemRepository itemRepository = new ItemRepository();            
+            ItemRepository itemRepository = new ItemRepository();
             ValidadorDeItem validadorDeItem = item.EhValido();
             if (validadorDeItem.Status == false)
             {
