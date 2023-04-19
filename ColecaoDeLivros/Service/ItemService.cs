@@ -20,7 +20,6 @@ namespace ColecaoDeItem.Service
             {
                 return new ValidadorDeItem(false, "Por favor inserir um tipo válido ( Livro, Cd ou Dvd)!");
             }
-
             else
                 return new ValidadorDeItem(true, "Criado com sucesso!");
         }
